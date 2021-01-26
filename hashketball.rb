@@ -126,4 +126,76 @@ def game_hash
   }
 end
 
-# Write code here
+def num_points_scored(player_name)
+  game_hash.each do |home_or_away, team_hash|
+    team_hash[:players].each do |players_AoH|
+      if players_AoH[:player_name] == player_name
+        return players_AoH[:points]
+      end
+    end
+  end
+end
+
+def shoe_size(player_name)
+  game_hash.each do |home_or_away, team_hash|
+    team_hash[:players].each do |players_AoH|
+      if players_AoH[:player_name] == player_name
+        return players_AoH[:shoe]
+      end
+    end
+  end
+end
+
+def team_colors(team_name)
+  game_hash.each do |home_or_away, team_hash|
+    if team_hash[:team_name] == team_name
+      return team_hash[:colors]
+    end
+  end
+end
+
+def team_names
+  team_names = []
+  game_hash.each do |home_or_away, team_hash|
+    team_names.push(team_hash[:team_name])
+  end
+  team_names
+end
+
+def player_numbers(team_name)
+  jersey_numbers = []
+  if game_hash[:home][:team_name] == team_name
+    game_hash[:home][:players].each do |player_hash|
+      jersey_numbers.push(player_hash[:number])
+    end
+  else
+    game_hash[:away][:players].each do |player_hash|
+      jersey_numbers.push(player_hash[:number])
+    end
+  end
+  jersey_numbers
+end
+
+def player_stats(player_name)
+  game_hash.each do |home_or_away, team_hash|
+    team_hash[:players].each do |players_AoH|
+      if players_AoH[:player_name] == player_name
+        return players_AoH
+      end
+    end
+  end
+end  
+
+def big_shoe_rebounds
+  biggest_shoe_size = 0 
+  rebounds = 0
+  game_hash.each do |home_or_away, team_hash|
+    team_hash[:players].each do |player_hash| # mistake naming this in earlier methods
+      if biggest_shoe_size < player_hash[:shoe]
+        biggest_shoe_size = player_hash[:shoe]
+        rebounds = player_hash[:rebounds]
+      end
+    end
+  end
+  rebounds
+end  
