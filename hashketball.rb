@@ -164,13 +164,11 @@ end
 
 def player_numbers(team_name)
   jersey_numbers = []
-  if game_hash[:home][:team_name] == team_name
-    game_hash[:home][:players].each do |player_hash|
-      jersey_numbers.push(player_hash[:number])
-    end
-  else
-    game_hash[:away][:players].each do |player_hash|
-      jersey_numbers.push(player_hash[:number])
+  game_hash.each do |home_or_away, team_hash|
+    if team_hash[:team_name] == team_name
+      team_hash[:players].each do |player_hash|
+        jersey_numbers.push(player_hash[:number])
+      end
     end
   end
   jersey_numbers
